@@ -17,38 +17,20 @@ class system_update {
   }
 }
 
-class apache {
-  exec { 'Update apache repository':
-    command => 'apt-get update',
-  }
-
-  package { ['apache2']:
-    ensure  => installed,
-    require => Exec['Update apache repository'],
-  }
-
-
-  service { "apache2":
-    ensure  => "running",
-    require => Package['apache2'],
-  }
-}
- 
 $application_name = "webapp"
 $target_ruby      = "ruby1.9.3"
 $brightbox_repo   = "ruby-ng"
 
 class basic_webserver {
   class { "system_update": }
-  class { "apache": }
   class { "webapp": appname => $application_name }
 }
 
 class ruby_webserver {
   class { "brightbox-ruby": repository => $brightbox_repository }
-  class { "brightbox-ruby::install_ruby": version => $target_ruby }
-  class { "brightbox-ruby::install_passenger": }
-  class { "webapp::ruby": appname => $application_name }
+  class { "webapp::ruby": 
+    appname     => $application_name,
+    target_ruby => $target_ruby }
 }
 
 include basic_webserver
