@@ -1,3 +1,5 @@
+Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ] }
+
 class system_update {
   $sysPackages = [ 
     "build-essential", 
@@ -68,58 +70,11 @@ class configure_app ( $appname = "webapp" ) {
     notify  => Service["apache2"],
   }    
 }
-
-class add_apt_brightbox ($repository = "ruby-ng") {
-  exec { 'brightbox_repository':
-    command => "add-apt-repository ppa:brightbox/$repository",
-    require => Package["python-software-properties"]
-  }
-
-  exec { 'Updates from new repository':
-    command => 'apt-get update',
-    require => Exec['brightbox_repository']
-  }
-
-  notify { 'Brightbox repository added': 
-    message => "Added the ${repository} Brightbox package repository.",
-    require => Exec['Updates from new repository']
-  }
-}
  
-class install_ruby_stack ($version = "ruby1.9.3") {
-  package { $version:
-    ensure  => "installed",
-    require => Class["add_apt_brightbox"]
-  } 
-
-  package { "rubygems":
-    ensure  => "installed",
-    require => Package[$version]
-  } 
-
-  package { "ruby-switch":
-    ensure  => "installed",
-    require => Package["rubygems"]
-  }   
-}
-
-class configure_ruby ($version = "ruby1.9.1") {  
-  exec { 'set_default_ruby':
-    command => "ruby-switch --set $version",
-    require => [ 
-      Package[$target_ruby], 
-      Package["rubygems"], 
-      Package["ruby-switch"]],
-  } 
-
-  exec { 'install_core_gems':
-    command => 'gem install bundler rake --no-rdoc --no-ri',
-    require => Exec['set_default_ruby'],
-  } 
-  
+class add_passenger {    
   package { ["libapache2-mod-passenger", "passenger-common1.9.1"]:
     ensure  => 'installed',
-    require => Exec["set_default_ruby"],
+    require => Class["brightbox-ruby::install_ruby"],
     notify  => Service["apache2"],
   }
 }
@@ -149,15 +104,11 @@ class basic_webserver {
 }
 
 class ruby_webserver {
-  class { "add_apt_brightbox": repository => $brightbox_repository }
-  class { "install_ruby_stack": version => $target_ruby }
-  case $target_ruby {
-    "ruby1.9.3":  { class { configure_ruby: } }
-    default:      { class { configure_ruby: version => $target_ruby } } 
-  }
+  class { "brightbox-ruby": repository => $brightbox_repository }
+  class { "brightbox-ruby::install_ruby": version => $target_ruby }
+  class { "add_passenger": }
   class { "configure_ruby_app": appname => $application_name }
 }
 
-Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ] }
 include basic_webserver
 include ruby_webserver
