@@ -71,14 +71,6 @@ class configure_app ( $appname = "webapp" ) {
   }    
 }
  
-class add_passenger {    
-  package { ["libapache2-mod-passenger", "passenger-common1.9.1"]:
-    ensure  => 'installed',
-    require => Class["brightbox-ruby::install_ruby"],
-    notify  => Service["apache2"],
-  }
-}
-
 class configure_ruby_app ( $appname = 'webapp') {
   file { "Add application tmp directory":
     path => "/var/$appname/tmp",
@@ -106,7 +98,7 @@ class basic_webserver {
 class ruby_webserver {
   class { "brightbox-ruby": repository => $brightbox_repository }
   class { "brightbox-ruby::install_ruby": version => $target_ruby }
-  class { "add_passenger": }
+  class { "brightbox-ruby::install_passenger": }
   class { "configure_ruby_app": appname => $application_name }
 }
 
