@@ -18,7 +18,7 @@ class system_update {
 }
 
 $application_name = "webapp"
-$target_ruby      = "ruby1.9.3"
+$target_ruby      = "ruby2.1"
 $brightbox_repo   = "ruby-ng"
 
 class basic_webserver {

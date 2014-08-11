@@ -1,4 +1,4 @@
-class brightbox-ruby::install_ruby ($version = "ruby1.9.3") {
+class brightbox-ruby::install_ruby ($version = "ruby2.1") {
   package { $version:
     ensure  => "installed",
     require => Class["brightbox-ruby"]
@@ -22,7 +22,7 @@ class brightbox-ruby::install_ruby ($version = "ruby1.9.3") {
   }
 
   case $version {
-    "ruby1.9.3":  { class { 'brightbox-ruby::switch_ruby': } }
+    "ruby2.1":  { class { 'brightbox-ruby::switch_ruby': } }
     default:      { class { 'brightbox-ruby::switch_ruby': 
                               version => $version } } 
   }

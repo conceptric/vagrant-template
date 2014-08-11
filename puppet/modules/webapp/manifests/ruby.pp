@@ -1,7 +1,7 @@
-class webapp::ruby ( $appname = 'webapp', $target_ruby = 'ruby1.9.3') {
+class webapp::ruby ( $appname = 'webapp', $target_ruby = 'ruby2.1') {
   class { "brightbox-ruby::install_ruby": version => $target_ruby }
   
-  package { ["libapache2-mod-passenger", "passenger-common1.9.1"]:
+  package { ["libapache2-mod-passenger"]:
     ensure  => 'installed',
     require => Class[brightbox-ruby::switch_ruby],
     notify  => Service['apache2'],
