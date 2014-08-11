@@ -5,9 +5,10 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
-  config.vm.box = "precise64"
-  config.vm.hostname = 'web.developer.vm'
-  config.vm.network :private_network, ip: "192.168.33.10"
+  config.vm.box = "ubuntu/trusty64"
+  config.vm.hostname = 'web.developer.dev'
+  config.vm.network :forwarded_port, guest: 80, host: 4545
+  config.vm.network :forwarded_port, guest: 9292, host: 4646
 
   config.vm.provision :puppet do |puppet|
     puppet.options = ['--verbose']    
