@@ -1,0 +1,115 @@
+/* =Typography
+----------------------------------------------- */
+body {
+	font-family: 'Optima', 'Candara', 'Lucida Grande', 'Lucida sans unicode', 'Microsoft Sans Serif', Sans-Serif;
+	font-size: 81.25%; /* Scales the base font from 16px to 13px */
+	font-weight: normal;
+	line-height: 2em; /* Equivalent to 26px on the base font size */
+}
+
+#website-title {
+  border: none;
+  font-size: 52px;
+  line-height: 78px;
+  margin-bottom: 26px;
+  padding: 0px;
+  text-decoration: none;
+}
+
+#footer > * {
+  font-weight: bold;
+  text-align: center;
+}
+
+h1,
+#site-navigation h3.first {
+  font-size: 2.15385em; /* 28px */
+  line-height: 2.7857;
+  margin-bottom: 0.9286em;
+}
+
+h2,
+#site-navigation h3 {
+  font-size: 1.38461em; /* 18px */
+  line-height: 1.44445;
+  margin-bottom: 1.44445em;
+}
+
+h3 {
+  font-size: 1.23077em; /* 16px */
+  line-height: 1.625;
+  margin-bottom: 1.625em;
+}
+
+p, ol, ul, dl {
+  margin: 2em 0px;
+	text-align: left;
+}
+
+em {
+  font-style: italic;
+  font-weight: bold;
+}
+
+.description {
+  font-style: italic;
+}
+
+.unfloat {
+  clear: left;
+  float: none;
+}
+
+/* =Graphics.General
+----------------------------------------------- 
+borders
+  foreground #1e1a38 (scheme base colour - 0)
+
+Dark background
+  background #080b0e (3)
+  base text  #c7cacd (-3)
+  links
+    foreground #8e949b (-2)
+      visited  #565f69 (-1)
+    background transparent
+  active link
+    foreground #fff (-4)
+    background #0f151c (2)
+*/
+body {
+  background: #fff;
+  color: #080b0e;
+}
+
+#header, #footer {
+  background: #080b0e;
+  color: #c7cacd;
+}
+
+a#website-title:visited {
+  color: #c7cacd; 
+}
+
+a {
+  background: transparent;
+  border-bottom-color: #8e949b;
+  color: #8e949b;  
+}
+
+a:visited {
+  background: transparent;
+  color: #565f69;
+}
+
+a:active, a:hover {
+  background: #0f151c;
+  color: #fff;  
+}
+
+/* =Graphics.Home
+----------------------------------------------- */
+body h1 {
+  font-size: 1.8461em; /* 24px */
+  line-height: 2.167;
+  margin-bottom: 1.0833em;
+}

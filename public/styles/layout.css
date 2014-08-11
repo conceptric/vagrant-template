@@ -1,0 +1,46 @@
+/*
+ * Site Layout CSS -  layout
+ * Author: James Whinfrey <jkwhinfrey@cyberstruction.co.uk>
+ * Description: based on a 960px, 4 column fixed width grid.
+ */
+
+/* =General
+----------------------------------------------- */
+#content, #website-title, #footer > * {
+  width: 900px;
+}
+
+#website-title {
+  display: block;
+  margin: 26px auto;
+}
+
+#page-title {
+  display: none;
+}
+
+#content {
+  height: 32em;
+  margin: 78px auto;
+}
+
+#footer > * {
+  margin: 0em auto;
+}
+
+#header, #footer {
+  padding: 2em 0px;
+}
+
+.article {
+  padding-right: 60px;
+  width: 420px;
+}
+
+#action {
+  position: relative; left: 480px; top: -32em;
+}
+
+#action, #footer {
+  margin-bottom: -30em;
+}
