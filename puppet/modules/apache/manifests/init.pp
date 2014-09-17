@@ -1,34 +1,19 @@
 class apache {
-  package { "apache2":
-    ensure  => present,
-    require => Class["system-update::install_packages"],
-  }
+	include apache::developer_vhost
+	include apache::enable_mods
 
-  exec { "Enable mod_rewrite":
-    command => "sudo a2enmod rewrite",
-    require => Package["apache2"],
-  } 
+	package { 'build-essential':
+		ensure => installed,
+		require => Class["system-update"],
+	}
+	
+	package { "apache2":
+		ensure  => present,
+		require => Package["build-essential"],
+	}
 
-  service { "apache2":
-    ensure  => "running",
-    require => Exec["Enable mod_rewrite"],
-  }
-
-  file { 'remove default vhost':
-    notify    => Service["apache2"],
-    ensure    => absent,
-    path      => "/etc/apache2/sites-enabled/000-default.conf",
-    require   => Package["apache2"],
-  }    
-
-  file { "development vhost":
-    notify    => Service["apache2"],
-    ensure    => file,
-    path      => "/etc/apache2/sites-enabled/app.conf",
-    content   => template('apache/vhost.erb'),
-    force     => true,
-    owner     => "root",
-    group     => "root",
-    require   => Package["apache2"],
-  }
+	service { "apache2":
+		ensure  => "running",
+		require => Package["apache2"],
+	}
 }

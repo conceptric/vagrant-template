@@ -1,22 +1,22 @@
 Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ] }
 
-class updated_server {
+class basic_webserver {
 	include system-update
-	include system-update::install_packages
+	include apache
+	include apache::enable_mods
+	include apache::developer_vhost
 }
 
-class basic_webserver {
-	include updated_server
-	include apache
+class php_webserver {
+	include basic_webserver
 	include apache::php5
 }
 
 class ruby_webserver {
-	include updated_server
+	include basic_webserver
 	include brightbox-ruby
 	include brightbox-ruby::install_ruby
 	include brightbox-ruby::install_gems
-	include apache
 	include apache::passenger
 }
 
