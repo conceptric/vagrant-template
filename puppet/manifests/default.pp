@@ -1,37 +1,21 @@
 Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ] }
 
-class system_update {
-  $sysPackages = [ 
-    "build-essential", 
-    "curl", 
-    "libcurl4-openssl-dev", 
-    "python-software-properties" ]
-    
-  exec { 'Update remote repositories':
-    command => 'apt-get update',
-  } 
-  
-  package { $sysPackages:
-    ensure  => "installed",
-    require => Exec["Update remote repositories"],
-  }
+class updated_server {
+	include system-update
+	include system-update::install_packages
 }
 
-$application_name = "webapp"
-$target_ruby      = "ruby2.1"
-$brightbox_repo   = "ruby-ng"
-
 class basic_webserver {
-  class { "system_update": }
-  class { "webapp": appname => $application_name }
+	include updated_server
+	include apache
+	include apache::php5
 }
 
 class ruby_webserver {
-  class { "brightbox-ruby": repository => $brightbox_repository }
-  class { "webapp::ruby": 
-    appname     => $application_name,
-    target_ruby => $target_ruby }
+	include updated_server
+	include brightbox-ruby
+	include apache
+	include apache::passenger
 }
 
 include basic_webserver
-include ruby_webserver
