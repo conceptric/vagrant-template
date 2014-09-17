@@ -1,6 +1,7 @@
 class apache {
   package { "apache2":
     ensure  => present,
+    require => Class["system-update::install_packages"],
   }
 
   exec { "Enable mod_rewrite":

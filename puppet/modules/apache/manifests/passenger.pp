@@ -2,7 +2,7 @@ class apache::passenger {
   package { ["libapache2-mod-passenger"]:
     notify  => Service['apache2'],
     ensure  => 'installed',
-    require => Class[brightbox-ruby::switch_ruby],
+    require => Class["brightbox-ruby::install_ruby"],
   }
 
   file { "Add application tmp directory":
@@ -13,6 +13,7 @@ class apache::passenger {
   }
 
   exec { 'Set passenger refresh on every change':
-    command => "touch /var/$appname/tmp/always_restart.txt",
+    command => "touch /var/www/app/tmp/always_restart.txt",
+    require => File["Add application tmp directory"],
   }  
 }
