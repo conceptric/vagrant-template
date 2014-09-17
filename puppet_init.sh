@@ -14,3 +14,5 @@ puppet module install puppetlabs/stdlib
 puppet module install puppetlabs/apt
 puppet module install puppetlabs/ntp
 puppet module install puppetlabs/firewall
+
+sudo puppet apply --modulepath=./puppet/modules ./puppet/manifests/
