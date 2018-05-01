@@ -1,3 +1,5 @@
+Exec { path => '/bin/:/sbin/:/usr/bin/:/usr/sbin/' }
+
 class basic_webserver {
 	include system_update
 	include apache
