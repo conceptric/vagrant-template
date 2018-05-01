@@ -4,7 +4,7 @@ class apache {
 
 	package { 'build-essential':
 		ensure => installed,
-		require => Class["system-update"],
+		require => Class["system_update"],
 	}
 	
 	package { "apache2":

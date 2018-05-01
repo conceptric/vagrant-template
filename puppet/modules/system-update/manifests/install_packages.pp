@@ -2,7 +2,7 @@
 # Perform system updates and install basic packages
 # $sysPackages is an array of package names
 #
-class system-update::install_packages ( $sysPackages = [ 
+class system_update::install_packages ( $sysPackages = [ 
     "build-essential", 
     "curl", 
     "libcurl4-openssl-dev", 
@@ -10,6 +10,6 @@ class system-update::install_packages ( $sysPackages = [
 		
 	package { $sysPackages:
 	  ensure  => "installed",
-	  require => Class["system-update"],
+	  require => Class["system_update"],
 	}
 }

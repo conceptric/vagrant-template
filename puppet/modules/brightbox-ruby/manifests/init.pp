@@ -1,7 +1,7 @@
-class brightbox-ruby ($repository = "ruby-ng") {
+class brightbox_ruby ($repository = "ruby-ng") {
   package { 'python-software-properties':
     ensure => installed,
-    require => Class["system-update"],
+    require => Class["system_update"],
   }
   
   exec { 'brightbox_repository':

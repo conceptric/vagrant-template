@@ -2,7 +2,7 @@ class apache::passenger {
   package { ["libapache2-mod-passenger"]:
     notify  => Service['apache2'],
     ensure  => 'installed',
-    require => [Class["brightbox-ruby::install_ruby"], Package["apache2"]],
+    require => [Class["brightbox_ruby::install_ruby"], Package["apache2"]],
   }
 
   file { "Add application tmp directory":

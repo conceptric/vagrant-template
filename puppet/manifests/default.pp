@@ -1,7 +1,5 @@
-Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ] }
-
 class basic_webserver {
-	include system-update
+	include system_update
 	include apache
 	include apache::enable_mods
 	include apache::developer_vhost
@@ -14,10 +12,10 @@ class php_webserver {
 
 class ruby_webserver {
 	include basic_webserver
-	include brightbox-ruby
-	include brightbox-ruby::install_ruby
-	include brightbox-ruby::install_gems
+	include brightbox_ruby
+	include brightbox_ruby::install_ruby
+	include brightbox_ruby::install_gems
 	include apache::passenger
 }
 
-include ruby_webserver
+include basic_webserver
